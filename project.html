@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forma — PORTO ROCHA</title>
+  <link rel="stylesheet" href="css/shared.css" />
+  <style>
+    .project__hero{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:4px;height:580px;border-bottom:1px solid var(--line);background:#f0f0f0;}
+    .project__hero-main{grid-row:1/3;overflow:hidden;position:relative;background:#e8e8e8;}
+    .project__hero-p1,.project__hero-p2{overflow:hidden;background:#ddd;}
+    .project__hero img{width:100%;height:100%;object-fit:cover;display:block;}
+    .img-caption{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.4));font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+    .project__body{padding:32px 40px;}
+    .meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:36px;}
+    .meta-label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block;}
+    .meta-value{font-size:14px;color:var(--text);}
+    .project__split{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:36px;}
+    .project__h1{font-family:var(--font-display),sans-serif;font-size:clamp(22px,3vw,36px);font-weight:400;letter-spacing:-.3px;line-height:1.1;}
+    .project__desc{font-size:14px;color:var(--muted);line-height:1.7;}
+    .project__desc p+p{margin-top:1em;}
+    .credits-label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+    .credits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--line);}
+    .credit-card{background:var(--card-bg);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:center;}
+    .credit-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--line);}
+    .credit-avatar img{width:100%;height:100%;object-fit:cover;}
+    .credit-name{font-size:14px;font-weight:500;}
+    .credit-role{font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:2px;}
+    .project__nav{display:flex;justify-content:space-between;align-items:center;}
+    .project__nav a{display:flex;flex-direction:column;gap:3px;}
+    .nav-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+    .nav-title{font-family:var(--font-display),sans-serif;font-size:18px;font-weight:400;letter-spacing:-.2px;transition:color .2s;}
+    .nav-title:hover{color:var(--muted);}
+    @media(max-width:1000px){.project__hero{grid-template-columns:1fr;height:auto;}.project__hero-main{height:320px;grid-row:auto;}.project__hero-p1,.project__hero-p2{height:200px;}.meta-row{grid-template-columns:1fr 1fr;}.project__split{grid-template-columns:1fr;gap:20px;}.credits-grid{grid-template-columns:1fr 1fr;}.project__body{padding:24px;}}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <nav class="nav">
+    <div class="nav__topbar"><button class="nav__show-btn" onclick="location.href='all.html'">Show all projects</button><button class="nav__toggle"></button></div>
+    <div class="nav__header"><div class="nav__brand">PORTO ROCHA</div><div class="nav__clock"><span class="nav__clock-date" id="clock-date"></span><span class="nav__clock-time" id="clock-time"></span></div></div>
+    <div class="nav__cards">
+      <a class="nav__card" href="about.html"><p class="nav__about-title">About us</p><p class="nav__about-text">PORTO ROCHA is an independent design practice focused on brand identity and digital experiences.</p></a>
+      <a class="nav__card" href="project.html?p=forma"><div class="nav__project"><div class="nav__project-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=140&q=80&fit=crop" alt="" /></div><div class="nav__project-info"><p class="nav__project-name">Forma</p><p class="nav__project-desc">Brand identity built around restraint and tactility</p></div></div></a>
+      <a class="nav__card" href="project.html?p=meridian"><div class="nav__project"><div class="nav__project-thumb"><img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=140&q=80&fit=crop" alt="" /></div><div class="nav__project-info"><p class="nav__project-name">Meridian</p><p class="nav__project-desc">Digital presence for a technology studio</p></div></div></a>
+      <a class="nav__card" href="project.html?p=veld"><div class="nav__project"><div class="nav__project-thumb"><img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=140&q=80&fit=crop" alt="" /></div><div class="nav__project-info"><p class="nav__project-name">Veld</p><p class="nav__project-desc">Packaging and campaign art direction</p></div></div></a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="project__hero">
+      <div class="project__hero-main"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&fit=crop" alt="Forma" /><span class="img-caption">Studio shoot — Forma Identity, 2024</span></div>
+      <div class="project__hero-p1"><img src="https://images.unsplash.com/photo-1545959570-a94084071b5d?w=600&q=80&fit=crop&crop=faces" alt="" /></div>
+      <div class="project__hero-p2"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=faces" alt="" /></div>
+    </div>
+    <div class="project__body">
+      <div class="meta-row">
+        <div><span class="meta-label">Project</span><p class="meta-value">Forma</p></div>
+        <div><span class="meta-label">Category</span><p class="meta-value">Brand Identity</p></div>
+        <div><span class="meta-label">Year</span><p class="meta-value">2024</p></div>
+        <div><span class="meta-label">Client</span><p class="meta-value">Forma Interiors, Copenhagen</p></div>
+      </div>
+      <div class="project__split">
+        <h1 class="project__h1">A furniture brand built on restraint and tactility.</h1>
+        <div class="project__desc"><p>Forma needed an identity that could hold stillness without becoming inert. The visual system draws from Scandinavian object-making traditions — plain forms with exact edges, materials that age into character.</p><p>Typography was set in a single weight across all surfaces. Color was restricted to warm stone and unbleached cotton.</p><p>The result is a brand that feels made rather than designed — present in the room, never competing with the furniture itself.</p></div>
+      </div>
+      <p class="credits-label">Studio</p>
+      <div class="credits-grid">
+        <div class="credit-card"><div class="credit-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&fit=crop&crop=faces" alt="" /></div><div><p class="credit-name">Elena Voss</p><p class="credit-role">Creative Director</p></div></div>
+        <div class="credit-card"><div class="credit-avatar"><img src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=100&q=80&fit=crop&crop=faces" alt="" /></div><div><p class="credit-name">Marcus Chen</p><p class="credit-role">Brand Designer</p></div></div>
+        <div class="credit-card"><div class="credit-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&fit=crop&crop=faces" alt="" /></div><div><p class="credit-name">Nadia Park</p><p class="credit-role">Art Direction</p></div></div>
+      </div>
+      <nav class="project__nav">
+        <a href="project.html?p=dune"><span class="nav-label">← Previous</span><span class="nav-title">Dune Studio</span></a>
+        <a href="project.html?p=meridian" style="text-align:right;"><span class="nav-label">Next →</span><span class="nav-title">Meridian</span></a>
+      </nav>
+    </div>
+  </div>
+</div>
+<script>function tick(){const n=new Date();document.getElementById('clock-date').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});document.getElementById('clock-time').textContent='Des Moines, '+n.toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}tick();setInterval(tick,1000);</script>
+</body></html>

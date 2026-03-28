@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PORTO ROCHA</title>
+  <link rel="stylesheet" href="css/shared.css" />
+  <style>
+    /* ── Layout ── */
+    html, body { height: 100%; overflow: hidden; margin: 0; padding: 0; }
+    body { display: flex; }
+    .wrapper { display: flex; width: 100%; height: 100vh; }
+
+    /* ── Right content column ── */
+    .content {
+      flex: 1;
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .content::-webkit-scrollbar { display: none; }
+
+    /* ── HERO: full viewport height, fills right panel ── */
+    .hero {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #d8d5cf;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      padding: 8px;
+      align-items: start;
+    }
+    .cards-col { display: flex; flex-direction: column; gap: 8px; }
+
+    a.card {
+      display: block;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 16px;
+      transition: background .2s;
+      text-decoration: none;
+    }
+    a.card:hover { background: var(--card-hover); }
+
+    .card__date  { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: block; }
+    .card__title { font-family: var(--font-display), sans-serif; font-size: 21px; font-weight: 400; letter-spacing: -.3px; line-height: 1.15; color: var(--text); margin-bottom: 10px; }
+    .card__body  { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+
+    /* Default card image — vertical portrait */
+    .card__img {
+      overflow: hidden;
+      border-radius: 6px;
+      background: #ddd;
+    }
+    .card__img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .35s;
+    }
+    a.card:hover .card__img img { transform: scale(1.025); }
+
+    /* Orientation variants */
+    .card__img--portrait   { aspect-ratio: 3/4; }
+    .card__img--landscape  { aspect-ratio: 16/9; }
+    .card__img--square     { aspect-ratio: 1/1; }
+    .card__img--wide       { aspect-ratio: 4/3; }
+
+    @media(max-width:1100px){ .cards-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:640px) { .cards-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ══════════ LEFT NAV ══════════ -->
+  <nav class="nav">
+    <div class="nav__topbar">
+      <button class="nav__show-btn" onclick="location.href='all.html'">Show all projects</button>
+      <button class="nav__toggle" aria-label="Toggle view"></button>
+    </div>
+    <div class="nav__header">
+      <div class="nav__brand">PORTO ROCHA</div>
+      <div class="nav__clock">
+        <span class="nav__clock-date" id="clock-date"></span>
+        <span class="nav__clock-time" id="clock-time"></span>
+      </div>
+    </div>
+    <div class="nav__cards">
+      <a class="nav__card" href="about.html">
+        <p class="nav__about-title">About us</p>
+        <p class="nav__about-text">PORTO ROCHA is a global strategy and design agency with offices in New York and London.</p>
+      </a>
+      <a class="nav__card" href="project.html?p=Robinhood">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/19f374b2c04a2c84f1aed12737df30a0_002.png" alt="Robinhood" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">Robinhood Market</p><p class="nav__project-desc">Bringing lifestyle to a finance brand through elevated merch</p></div>
+        </div>
+      </a>
+      <a class="nav__card" href="project.html?p=Nike Run">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/7d114369853c65c44ce5f91b9b243f2b_002.jpg" alt="Nike Run" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">Nike Run</p><p class="nav__project-desc">Making Nike the running brand once again</p></div>
+        </div>
+      </a>
+      <a class="nav__card" href="project.html?p=Kunsthalle">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/b670d5b1285397047b038368533b15ea_002.png" alt="Kunsthalle" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">Kunsthalle Basel</p><p class="nav__project-desc">Building an institutional brand with an anti-institutional spirit.</p></div>
+        </div>
+      </a>
+      <a class="nav__card" href="project.html?p=Gemini">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/dfbff0446cd450d7bafc721aad8fc51c_002.png" alt="Gemini" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">Gemini</p><p class="nav__project-desc">Ushering in a new era for Google.</p></div>
+        </div>
+      </a>
+      <a class="nav__card" href="project.html?p=MASP">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/5bea1e1fd8beee2b68161482c99046e8.jpg" alt="MASP" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">MASP</p><p class="nav__project-desc">A modern identity for a modernist icon</p></div>
+        </div>
+      </a>
+      <a class="nav__card" href="project.html?p=Melissa">
+        <div class="nav__project">
+          <div class="nav__project-thumb"><img src="images/858c5df6c3f197e4907f97b1a3226298_003.png" alt="Melissa" /></div>
+          <div class="nav__project-info"><p class="nav__project-name">Melissa</p><p class="nav__project-desc">A refined symbol and expressive system for an icon of plastic fashion</p></div>
+        </div>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══════════ CONTENT ══════════ -->
+  <div class="content">
+
+    <!-- HERO — full viewport height -->
+    <div class="hero">
+      <img src="images/a2f7ddaf1c509690f80ad04a61911b9f_003.jpg" alt="Porto Rocha" />
+    </div>
+
+    <!-- CARDS -->
+    <div class="cards-grid">
+
+      <!-- Col 1 -->
+      <div class="cards-col">
+        <a class="card" href="project.html?p=forma">
+          <span class="card__date">8 April 2026</span>
+          <h2 class="card__title">Felipe Rocha to join ADG Jury Talk at the 2026 Laus Awards</h2>
+          <p class="card__body">Felipe Rocha will be serving as a member on the Branding and graphics of the environment Jury for the 2026 ADG Laus awards in Barcelona. Entries are open now!</p>
+          <!-- landscape: wide news/editorial photos look best horizontal -->
+          <div class="card__img card__img--landscape">
+            <img src="images/eed8797508fff9f7b24d330cb068e2cb_002.png" alt="" loading="lazy" />
+          </div>
+        </a>
+        <a class="card" href="project.html?p=olivo">
+          <span class="card__date">27 January 2026</span>
+          <h2 class="card__title">BP&O Reviews Kunsthalle Basel Identity</h2>
+          <p class="card__body">BP&O featured our identity for Kunsthalle Basel, highlighting its seamless fit within the art community.</p>
+          <!-- portrait: editorial/art imagery suits vertical -->
+          <div class="card__img card__img--portrait">
+            <img src="images/a962c5740920cb7edd3cfd5150a1b060.jpg" alt="" loading="lazy" />
+          </div>
+        </a>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="cards-col">
+        <a class="card" href="project.html?p=meridian">
+          <span class="card__date">9 March 2026</span>
+          <h2 class="card__title">Creative Review | New Beginnings: Kunsthalle Basel recognized by Tokyo TDC Awards</h2>
+          <p class="card__body">Out of 3605 entries, our logo for Kunsthalle Basel received recognition for excellence in the prestigious Tokyo TDC Awards, branding category.</p>
+          <!-- portrait -->
+          <div class="card__img card__img--portrait">
+            <img src="images/257ec7149ef355dc79f14011c0c0ef19_003.jpg" alt="" loading="lazy" />
+          </div>
+        </a>
+        <a class="card" href="project.html?p=aether">
+          <span class="card__date">8 January 2026</span>
+          <h2 class="card__title">Marcos Rodrigues: Design Between Systems, People &amp; Responsibility</h2>
+          <p class="card__body">Interactive Design Director Marcos Rodrigues speaks with Ukrainian design media platform Ukrteka on strategy-led decisions and collaboration in digital systems.</p>
+          <!-- landscape: screen/interface shots look better wide -->
+          <div class="card__img card__img--landscape">
+            <img src="images/98d132205d4665ddfefdc2fb32ac25af_002 2.png" alt="" loading="lazy" />
+          </div>
+        </a>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="cards-col">
+        <a class="card" href="project.html?p=veld">
+          <span class="card__date">10 March 2026</span>
+          <h2 class="card__title">Nathan Fyock to speak at Serifalaris 2026</h2>
+          <p class="card__body">Senior Strategist Claren Walker spoke with Transform Magazine about the rebrand that left the strongest impression on her in 2025.</p>
+          <!-- wide: street/environment shots suit 4:3 -->
+          <div class="card__img card__img--wide">
+            <img src="images/af7b233ff5c59ef6ebc7432b17d82367.jpg" alt="" loading="lazy" />
+          </div>
+        </a>
+        <a class="card" href="project.html?p=dune">
+          <span class="card__date">10 December 2025</span>
+          <h2 class="card__title">Joseph Lebus to speak at Multiplicity 2026</h2>
+          <p class="card__body">Design principal Joseph Lebus will be joining Multiplicity's 10th annual Design in Conversation conference in London.</p>
+          <!-- portrait -->
+          <div class="card__img card__img--portrait">
+            <img src="images/52b44a50e047a829fb09ee1f1d270221.jpg" alt="" loading="lazy" />
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div><!-- /content -->
+
+</div><!-- /wrapper -->
+
+<script>
+  function tick() {
+    const n = new Date();
+    document.getElementById('clock-date').textContent = n.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+    document.getElementById('clock-time').textContent = 'London, ' + new Date(n.toLocaleString('en-US',{timeZone:'Europe/London'})).toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>

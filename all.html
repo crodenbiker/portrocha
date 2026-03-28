@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Projects — PORTO ROCHA</title>
+  <link rel="stylesheet" href="css/shared.css" />
+  <style>
+    .archive__wrap{padding:40px;}.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}.archive__h1{font-family:var(--font-display),sans-serif;font-size:clamp(28px,4vw,52px);font-weight:400;letter-spacing:-.3px;line-height:1;max-width:16ch;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--line);}.archive__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}.archive__card{background:var(--card-bg);border-radius:12px;padding:20px;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;transition:background .2s;}.archive__card:hover{background:var(--card-hover);}.archive__meta{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}.archive__card h2{font-family:var(--font-display),sans-serif;font-size:26px;font-weight:400;letter-spacing:-.3px;line-height:1;margin-bottom:8px;}.archive__card p{font-size:13px;color:var(--muted);line-height:1.5;}
+    .nav__card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .nav__card-label { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .nav__card-more { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    a.nav__brand { text-decoration:none; color:inherit; }
+    @media(max-width:900px){.archive__grid{grid-template-columns:1fr 1fr;}.archive__wrap{padding:24px;}}@media(max-width:580px){.archive__grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <nav class="nav">
+    <div class="nav__topbar"><button class="nav__show-btn" onclick="location.href='index.html'">← Back home</button><button class="nav__toggle"></button></div>
+    <div class="nav__header"><a href="index.html" class="nav__brand">PORTO ROCHA</a><div class="nav__clock"><span class="nav__clock-date" id="clock-date"></span><span class="nav__clock-time" id="clock-time"></span></div></div>
+    <div class="nav__cards">
+      <a class="nav__card" href="about.html"><p class="nav__about-title">About us</p><p class="nav__about-text">PORTO ROCHA is an independent design practice focused on brand identity and digital experiences.</p></a>
+      <a class="nav__card" href="project.html?p=forma"><div class="nav__card-header"><span class="nav__card-label">Projects</span><span class="nav__card-more">Show More</span></div><div class="nav__project"><div class="nav__project-thumb"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=140&q=80&fit=crop" alt="" /></div><div class="nav__project-info"><p class="nav__project-name">Forma</p><p class="nav__project-desc">Brand identity built around restraint and tactility</p></div></div></a>
+      <a class="nav__card" href="project.html?p=meridian"><div class="nav__card-header"><span class="nav__card-label">Projects</span><span class="nav__card-more">Show More</span></div><div class="nav__project"><div class="nav__project-thumb"><img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=140&q=80&fit=crop" alt="" /></div><div class="nav__project-info"><p class="nav__project-name">Meridian</p><p class="nav__project-desc">Digital presence for a technology studio</p></div></div></a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="archive__wrap">
+      <p class="eyebrow">Archive</p>
+      <h1 class="archive__h1">Selected projects spanning identity, editorial, and digital direction.</h1>
+      <div class="archive__grid">
+        <a class="archive__card" href="project.html?p=forma"><p class="archive__meta">2024 / Identity</p><h2>Forma</h2><p>Brand world for a furniture company rooted in softness and restraint.</p></a>
+        <a class="archive__card" href="project.html?p=meridian"><p class="archive__meta">2024 / Digital</p><h2>Meridian</h2><p>Website system for a technical studio with an editorial navigation model.</p></a>
+        <a class="archive__card" href="project.html?p=veld"><p class="archive__meta">2023 / Packaging</p><h2>Veld</h2><p>Packaging range centered on earthy contrast and oversized type.</p></a>
+        <a class="archive__card" href="project.html?p=olivo"><p class="archive__meta">2023 / Editorial</p><h2>Olivo</h2><p>Visual system for a publication balancing intimacy and formal rigor.</p></a>
+        <a class="archive__card" href="project.html?p=aether"><p class="archive__meta">2023 / Campaign</p><h2>Aether</h2><p>Campaign art direction using atmosphere, polish, and sculptural framing.</p></a>
+        <a class="archive__card" href="project.html?p=dune"><p class="archive__meta">2022 / Launch</p><h2>Dune Studio</h2><p>Foundational brand system for a new practice focused on craft and detail.</p></a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>function tick(){const n=new Date();document.getElementById('clock-date').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});document.getElementById('clock-time').textContent='Des Moines, '+n.toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}tick();setInterval(tick,1000);</script>
+</body></html>

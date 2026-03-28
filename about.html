@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — PORTO ROCHA</title>
+  <link rel="stylesheet" href="css/shared.css" />
+  <style>
+    /* ── Reset / base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 17.5px;
+      color: #000;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Tokens ── */
+    :root {
+      --line:       rgba(0,0,0,0.12);
+      --card-bg:    rgba(0,0,0,0.04);
+      --card-hover: rgba(0,0,0,0.07);
+      --muted:      rgba(0,0,0,0.45);
+      --muted2:     rgba(0,0,0,0.65);
+      --red:        #e63322;
+      --br:         8px;
+      --pd:         16px;
+      --pd2:        8px;
+      --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* ══════════════════════════════════════
+       LEFT NAV — identical to index.html
+    ══════════════════════════════════════ */
+    .nav {
+      width: 390px;
+      min-width: 390px;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* topbar */
+    .nav__topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px var(--pd);
+      flex-shrink: 0;
+    }
+    .nav__show-btn {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      color: #000;
+      padding: 0;
+    }
+    .nav__show-btn:hover { text-decoration: underline; }
+    .nav__toggle {
+      width: 36px; height: 20px;
+      background: rgba(0,0,0,0.18);
+      border: none;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .nav__toggle.on { background: #000; }
+    .nav__toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px; height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px; left: 2px;
+      transition: transform .2s;
+    }
+    .nav__toggle.on::after { transform: translateX(16px); }
+
+    /* brand + clock */
+    .nav__header {
+      padding: 0 var(--pd) 8px;
+      flex-shrink: 0;
+    }
+    .nav__brand {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      text-align: center;
+      padding: 18px 0 6px;
+    }
+    .nav__clock {
+      text-align: center;
+      padding: 4px 0 14px;
+      line-height: 1.35;
+    }
+    .nav__clock-date,
+    .nav__clock-time {
+      font-size: 22px;
+      font-weight: 400;
+      display: block;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* scrollable cards area */
+    .nav__cards {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--pd2);
+      padding: 0 var(--pd) var(--pd);
+    }
+    .nav__cards::-webkit-scrollbar { display: none; }
+
+    /* about card */
+    .nav__card {
+      display: block;
+      background: var(--card-bg);
+      border-radius: var(--br);
+      padding: 12px;
+      transition: background .2s;
+      cursor: pointer;
+    }
+    .nav__card:hover { background: var(--card-hover); }
+    .nav__about-title {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .nav__about-text {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 18px;
+    }
+
+    /* project cards */
+    .nav__project {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .nav__project-thumb {
+      width: 56px; height: 56px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #ddd;
+    }
+    .nav__project-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .nav__project-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 3px;
+      line-height: 18px;
+    }
+    .nav__project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 17px;
+    }
+
+    /* ══════════════════════════════════════
+       MAIN CONTENT — scrollable
+    ══════════════════════════════════════ */
+    .content {
+      flex: 1;
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--pd2);
+      padding: var(--pd);
+    }
+    .content::-webkit-scrollbar { display: none; }
+
+    /* HERO */
+    .about__hero {
+      width: 100%;
+      aspect-ratio: 16/7;
+      overflow: hidden;
+      border-radius: var(--br);
+      background: #d8d5cf;
+      flex-shrink: 0;
+    }
+    .about__hero img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .about__hero__placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--muted);
+      letter-spacing: .05em;
+    }
+
+    /* CARDS */
+    .page__card {
+      background: var(--card-bg);
+      border-radius: var(--br);
+      padding: var(--pd);
+      transition: background .4s;
+    }
+    .page__card:hover { background: var(--card-hover); }
+    .section-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: block; }
+
+    /* OUR STUDIO */
+    .about__studio h2 { font-size: 22px; font-weight: 400; line-height: 28px; margin-bottom: 14px; }
+    .about__studio p  { font-size: 14px; line-height: 20px; color: var(--muted2); margin-bottom: 8px; }
+    .about__studio p:last-child { margin-bottom: 0; }
+
+    /* CLIENTS */
+    .clients__filter { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .clients__filter button {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 13px;
+      color: var(--muted); padding: 0; transition: color .2s;
+    }
+    .clients__filter button.active,
+    .clients__filter button:hover { color: #000; }
+    .clients__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px 0; }
+    .clients__grid span { font-size: 13px; line-height: 22px; }
+
+    /* LOCATIONS */
+    .about__locations { display: grid; grid-template-columns: 1fr 1fr; gap: var(--pd2); }
+    .location__card { background: var(--card-bg); border-radius: var(--br); overflow: hidden; }
+    .location__img-ph {
+      width: 100%; height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--muted);
+    }
+    .location__info { display: flex; align-items: flex-start; gap: 12px; padding: 12px; }
+    .location__clock { width: 32px; height: 32px; flex-shrink: 0; margin-top: 2px; }
+    .location__clock svg { width: 100%; height: 100%; }
+    .location__text h3 { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .location__text p  { font-size: 13px; color: var(--muted); line-height: 18px; }
+
+    /* OFFERINGS */
+    .offerings__tabs { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+    .offerings__tabs button {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 14px;
+      color: var(--muted); padding: 0; transition: color .2s;
+    }
+    .offerings__tabs button.active { color: #000; font-weight: 500; }
+    .offerings__tabs button:hover  { color: #000; }
+    .offerings__body { font-size: 22px; font-weight: 400; line-height: 30px; max-width: 580px; }
+
+    /* FOUNDERS */
+    .founders__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--pd); }
+    .founder__photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #d0cec9;
+      margin-bottom: 10px;
+    }
+    .founder__photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .founder__photo__ph {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--muted);
+    }
+    .founder__name  { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .founder__title { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .founder__bio   { font-size: 13px; line-height: 19px; color: var(--muted2); }
+
+    /* TEAM */
+    .team__row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+    }
+    .team__row:last-child { border-bottom: none; }
+    .team__name { font-weight: 500; }
+    .team__role { color: var(--muted); }
+    .team__city { color: var(--muted); text-align: right; }
+
+    /* ══════════════════════════════════════
+       RIGHT SIDEBAR — 3 zones
+    ══════════════════════════════════════ */
+    .right-sidebar {
+      width: 300px;
+      min-width: 300px;
+      height: 100vh;
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: var(--pd2);
+      padding: var(--pd);
+    }
+
+    /* Zone 1: Contact — fixed */
+    .right__contact { flex-shrink: 0; }
+    .contact__row { margin-bottom: 10px; }
+    .contact__row-label { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+    .contact__row a { font-size: 13px; text-decoration: underline; text-underline-offset: 2px; }
+    .contact__row a:hover { color: var(--muted2); }
+    .social-links { display: flex; gap: 6px; align-items: center; }
+    .social-links a { font-size: 13px; text-decoration: underline; text-underline-offset: 2px; }
+
+    /* Zone 2: Openings + Events — scrollable */
+    .right__scroll-zone {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--pd2);
+    }
+    .right__scroll-zone::-webkit-scrollbar { display: none; }
+
+    .openings__item {
+      display: block; font-size: 14px; font-weight: 500;
+      padding: 8px 0; border-bottom: 1px solid var(--line);
+      text-decoration: underline; text-underline-offset: 3px;
+      text-decoration-color: var(--line);
+      transition: text-decoration-color .2s;
+    }
+    .openings__item:last-child { border-bottom: none; }
+    .openings__item:hover { text-decoration-color: #000; }
+
+    .event__item { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .event__item:last-child { border-bottom: none; }
+    .event__top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+    .event__name { font-size: 14px; font-weight: 500; }
+    .event__date { font-size: 12px; color: var(--muted); white-space: nowrap; margin-left: 6px; }
+    .event__speaker  { font-size: 13px; color: var(--muted); }
+    .event__location { font-size: 13px; color: var(--muted); }
+
+    /* Zone 3: Shop — pinned bottom */
+    .right__shop {
+      flex-shrink: 0;
+      border-top: 1px solid var(--line);
+      padding-top: var(--pd2);
+    }
+    .shop__item { display: flex; gap: 12px; align-items: flex-start; }
+    .shop__tote {
+      width: 64px; height: 72px;
+      background: #1a1a1a;
+      border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .shop__tote span { color: #fff; font-size: 7px; font-weight: 700; letter-spacing: .06em; text-align: center; line-height: 1.4; }
+    .shop__name  { font-size: 13px; margin-bottom: 2px; }
+    .shop__price { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LEFT NAV — same as index.html
+══════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav__topbar">
+    <button class="nav__show-btn" onclick="location.href='all.html'">Show all projects</button>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle view"></button>
+  </div>
+  <div class="nav__header">
+    <div class="nav__brand">PORTO ROCHA</div>
+    <div class="nav__clock">
+      <span class="nav__clock-date" id="clock-date"></span>
+      <span class="nav__clock-time" id="clock-time"></span>
+    </div>
+  </div>
+  <div class="nav__cards">
+    <a class="nav__card" href="about.html">
+      <p class="nav__about-title">About us</p>
+      <p class="nav__about-text">PORTO ROCHA is an independent design practice focused on brand identity, digital experiences, and art direction.</p>
+    </a>
+    <a class="nav__card" href="project.html?p=Kunsthalle">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/b670d5b1285397047b038368533b15ea_002.png" alt="Kunsthalle" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">Kunsthalle Basel</p><p class="nav__project-desc">Building an institutional brand with an anti-institutional spirit.</p></div>
+      </div>
+    </a>
+    <a class="nav__card" href="project.html?p=Nike Run">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/7d114369853c65c44ce5f91b9b243f2b_002.jpg" alt="Nike Run" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">Nike Run</p><p class="nav__project-desc">A dynamic new identity rooted in legacy, built for the future</p></div>
+      </div>
+    </a>
+    <a class="nav__card" href="project.html?p=Gemini">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/dfbff0446cd450d7bafc721aad8fc51c_002.png" alt="Gemini" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">Gemini</p><p class="nav__project-desc">Ushering in a new era for Google.</p></div>
+      </div>
+    </a>
+    <a class="nav__card" href="project.html?p=MASP">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/5bea1e1fd8beee2b68161482c99046e8.jpg" alt="MASP" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">MASP</p><p class="nav__project-desc">A modern identity for a modernist icon</p></div>
+      </div>
+    </a>
+    <a class="nav__card" href="project.html?p=Robinhood">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/19f374b2c04a2c84f1aed12737df30a0_002.png" alt="Robinhood" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">Robinhood</p><p class="nav__project-desc">A grown-up identity for a finance pioneer</p></div>
+      </div>
+    </a>
+    <a class="nav__card" href="project.html?p=Melissa">
+      <div class="nav__project">
+        <div class="nav__project-thumb"><img src="images/858c5df6c3f197e4907f97b1a3226298_003.png" alt="Melissa" /></div>
+        <div class="nav__project-info"><p class="nav__project-name">Melissa</p><p class="nav__project-desc">A refined symbol and expressive system for an icon of plastic fashion</p></div>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════ -->
+<main class="content">
+
+  <!-- HERO — replace src with your photo path -->
+  <div class="about__hero">
+    <img src="images/studio.avif" alt="Porto Rocha team"
+         onerror="this.style.display='none';this.parentElement.querySelector('.about__hero__placeholder').style.display='flex';" />
+    <div class="about__hero__placeholder" style="display:none;">Add hero image → images/about_hero.jpg</div>
+  </div>
+
+  <!-- OUR STUDIO -->
+  <div class="page__card about__studio">
+    <span class="section-label">Our Studio</span>
+    <h2>PORTO ROCHA is a global strategy and design agency with offices in New York and London.</h2>
+    <p>We help brands navigate complex challenges through work that is strategically rigorous, emotionally resonant, and beautifully designed.</p>
+    <p>From large-scale rebrands to independent initiatives, our hard-working systems prove that craft and scale can coexist.</p>
+  </div>
+
+  <!-- CLIENTS -->
+  <div class="page__card">
+    <span class="section-label">Clients</span>
+    <div class="clients__filter">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="art">Art &amp; Culture</button>
+      <button data-filter="tech">Tech</button>
+      <button data-filter="fashion">Fashion</button>
+      <button data-filter="entertainment">Entertainment</button>
+      <button data-filter="hospitality">Hospitality</button>
+      <button data-filter="retail">Retail</button>
+      <button data-filter="finance">Finance</button>
+      <button data-filter="nonprofit">Non-profit</button>
+    </div>
+    <div class="clients__grid" id="clientsGrid"></div>
+  </div>
+
+  <!-- LOCATIONS -->
+  <div class="about__locations">
+    <div class="location__card">
+      <div class="location__img-ph" style="background:linear-gradient(135deg,#e0dcd6,#c8c4bc);">New York Office</div>
+      
+      <div class="location__info">
+        <div class="location__clock">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1"/>
+            <line id="ny-hour" x1="16" y1="16" x2="16" y2="9" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+            <line id="ny-min"  x1="16" y1="16" x2="16" y2="7" stroke="#e63322" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="location__text"><h3>New York</h3><p>75 Stewart Ave Unit 315<br>Brooklyn, NY</p></div>
+      </div>
+    </div>
+    <div class="location__card">
+      <div class="location__img-ph" style="background:linear-gradient(135deg,#d8d4ce,#bfbbb4);">London Office</div>
+      <div class="location__info">
+        <div class="location__clock">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1"/>
+            <line id="lon-hour" x1="16" y1="16" x2="16" y2="9" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+            <line id="lon-min"  x1="16" y1="16" x2="16" y2="7" stroke="#e63322" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="location__text"><h3>London</h3><p>436 Essex Rd Unit 221<br>London, UK</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFERINGS -->
+  <div class="page__card">
+    <span class="section-label">Offerings</span>
+    <div class="offerings__tabs">
+      <button class="active" data-tab="strategy">Strategy</button>
+      <button data-tab="verbal">Verbal Identity</button>
+      <button data-tab="visual">Visual Identity</button>
+      <button data-tab="digital">Digital</button>
+      <button data-tab="motion">Motion &amp; 3D</button>
+    </div>
+    <div class="offerings__body" id="offeringsContent">We help brands find their North Star, guiding decisions across business, identity, product, and experiences. Driven by insights, rooted in narrative, and ready to use, we turn business ambitions into brand realities that resonate with the world.</div>
+  </div>
+
+  <!-- FOUNDERS -->
+  <div class="page__card">
+    <div class="founders__grid">
+
+      <div>
+        <!-- Replace src with your Felipe photo path -->
+        <div class="founder__photo">
+          <img src="images/aLimKmGNHVfTOmsi_1.avif" alt="Felipe Rocha"
+               onerror="this.style.display='none';this.parentElement.querySelector('.founder__photo__ph').style.display='flex';" />
+          <div class="founder__photo__ph" style="display:none;">images/founder_felipe.jpg</div>
+        </div>
+        <div class="founder__name">Felipe Rocha</div>
+        <div class="founder__title">Founder &amp; Creative Director</div>
+        <p class="founder__bio">Felipe Rocha is a designer and creative director with over 18 years of experience shaping brands at the intersection of business, identity, and culture. His work spans global commercial and cultural contexts, partnering with companies and institutions to build brands that resonate at scale. Prior to co-founding PORTO ROCHA, he held roles at Spotify and Sagmeister &amp; Walsh, and worked at Fabrica in Italy on COLORS magazine. He is a member of the Alliance Graphique Internationale.</p>
+      </div>
+
+      <div>
+        <!-- Replace src with your Leo photo path -->
+        <div class="founder__photo">
+          <img src="images/aLioiWGNHVfTOm0l_2-1.jpg" alt="Leo Porto"
+               onerror="this.style.display='none';this.parentElement.querySelector('.founder__photo__ph').style.display='flex';" />
+          <div class="founder__photo__ph" style="display:none;">images/founder_leo.jpg</div>
+        </div>
+        <div class="founder__name">Leo Porto</div>
+        <div class="founder__title">Founder &amp; Creative Director</div>
+        <p class="founder__bio">Leo Porto is a NY-based Brazilian creative director and co-founder of PORTO ROCHA. His work centers around brand identity systems, building robust frameworks that are both precise and expressive — designed to scale and evolve with culture. Prior to founding the studio, Leo was a Design Director at COLLINS and worked at Pentagram, Mother, and Chermayeff &amp; Geismar &amp; Haviv. He has taught typography at the School of Visual Arts in New York, and has been recognized by D&amp;AD, The One Club, Print Magazine, and The Type Directors Club.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="page__card">
+    <span class="section-label">Team</span>
+    <div id="teamList"></div>
+  </div>
+
+</main>
+
+<!-- ══════════════════════════════════════
+     RIGHT SIDEBAR
+══════════════════════════════════════ -->
+<aside class="right-sidebar">
+
+  <!-- Zone 1: Contact — fixed -->
+  <div class="right__contact page__card">
+    <span class="section-label">Contact</span>
+    <div class="contact__row">
+      <div class="contact__row-label">New Business</div>
+      <a href="mailto:business@portorocha.com">business@portorocha.com</a>
+    </div>
+    <div class="contact__row">
+      <div class="contact__row-label">Media Inquiries</div>
+      <a href="mailto:press@portorocha.com">press@portorocha.com</a>
+    </div>
+    <div class="contact__row">
+      <div class="contact__row-label">General Inquiries</div>
+      <a href="mailto:info@portorocha.com">info@portorocha.com</a>
+    </div>
+    <div class="contact__row">
+      <div class="contact__row-label">Social</div>
+      <div class="social-links">
+        <a href="#">Instagram</a>
+        <span style="color:rgba(0,0,0,0.12);margin:0 2px">/</span>
+        <a href="#">Linkedin</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone 2: Openings + Events — scrollable -->
+  <div class="right__scroll-zone">
+    <div class="page__card">
+      <span class="section-label">Current Openings</span>
+      <a class="openings__item" href="#">Senior Motion Designer</a>
+      <a class="openings__item" href="#">Senior Brand Designer</a>
+      <a class="openings__item" href="#">Senior Interactive Designer</a>
+      <a class="openings__item" href="#">Senior Project Manager</a>
+      <a class="openings__item" href="#">Senior Strategist</a>
+      <a class="openings__item" href="#">Mid-Senior PR &amp; Engagement Manager</a>
+    </div>
+
+    <div class="page__card">
+      <span class="section-label">Events</span>
+      <div class="event__item">
+        <div class="event__top"><span class="event__name">ADG Laus</span><span class="event__date">April 8–9, 2026</span></div>
+        <div class="event__speaker">Felipe Rocha</div><div class="event__location">Barcelona, Spain</div>
+      </div>
+      <div class="event__item">
+        <div class="event__top"><span class="event__name">Elisava: Master Beyond Branding</span><span class="event__date">April 9th, 2026</span></div>
+        <div class="event__speaker">Leo Porto</div><div class="event__location">Barcelona, Spain</div>
+      </div>
+      <div class="event__item">
+        <div class="event__top"><span class="event__name">Design Nation</span><span class="event__date">April 18, 2026</span></div>
+        <div class="event__speaker">Nathan Fyock</div><div class="event__location">New York, USA</div>
+      </div>
+      <div class="event__item">
+        <div class="event__top"><span class="event__name">Vilnius College of Design</span><span class="event__date">April 27, 2026</span></div>
+        <div class="event__speaker">Marcos Rodrigues</div><div class="event__location">Vilnius, Lithuania</div>
+      </div>
+      <div class="event__item">
+        <div class="event__top"><span class="event__name">Norwich University of the Arts</span><span class="event__date">April 29, 2026</span></div>
+        <div class="event__speaker">Joseph Lebus</div><div class="event__location">Norwich, UK</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone 3: Shop — pinned bottom -->
+  <div class="right__shop">
+    <div class="shop__item">
+      <div class="shop__tote"><span>PORTO<br>ROCHA</span></div>
+      <div>
+        <div class="shop__name">Black Tote</div>
+        <div class="shop__price">$20</div>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+<script>
+  /* ── Clock — same logic as index.html ── */
+  function tick() {
+    const n = new Date();
+    document.getElementById('clock-date').textContent = n.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+    document.getElementById('clock-time').textContent = 'New York, ' + new Date(n.toLocaleString('en-US',{timeZone:'America/New_York'})).toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ── Nav toggle ── */
+  document.getElementById('navToggle').addEventListener('click', function(){ this.classList.toggle('on'); });
+
+  /* ── Location clocks ── */
+  function updateLocationClocks() {
+    const ny  = new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+    const lon = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/London'}));
+    function setHands(pfx, d) {
+      const h=d.getHours()%12, m=d.getMinutes(), s=d.getSeconds();
+      const hDeg=h*30+m*0.5, mDeg=m*6+s*0.1;
+      const toRad=deg=>(deg-90)*Math.PI/180;
+      const cx=16, cy=16;
+      document.getElementById(pfx+'-hour').setAttribute('x2', cx+7*Math.cos(toRad(hDeg)));
+      document.getElementById(pfx+'-hour').setAttribute('y2', cy+7*Math.sin(toRad(hDeg)));
+      document.getElementById(pfx+'-min').setAttribute('x2',  cx+9*Math.cos(toRad(mDeg)));
+      document.getElementById(pfx+'-min').setAttribute('y2',  cy+9*Math.sin(toRad(mDeg)));
+    }
+    setHands('ny', ny); setHands('lon', lon);
+  }
+  updateLocationClocks(); setInterval(updateLocationClocks, 1000);
+
+  /* ── Clients ── */
+  const clients = [
+    {name:'A24',cats:['art']},{name:'AB InBev',cats:['retail']},{name:'Airbnb',cats:['hospitality']},
+    {name:'Almeida & Dale',cats:['art']},{name:'Amazon',cats:['tech','retail']},{name:'Apple',cats:['tech']},
+    {name:'Bloomberg Philanthropies',cats:['nonprofit','finance']},{name:'BOFFO',cats:['art']},
+    {name:'Brooklyn Museum',cats:['art']},{name:'Cash App',cats:['finance']},{name:'Character.ai',cats:['tech']},
+    {name:'Church',cats:['art']},{name:'Coinbase',cats:['finance']},{name:'Cosmos',cats:['art']},
+    {name:'Cursor',cats:['tech']},{name:'Gymshark',cats:['fashion']},{name:'H&M',cats:['fashion']},
+    {name:'Harper Collins',cats:['art']},{name:'Hoka',cats:['fashion']},
+    {name:'Instagram',cats:['tech','entertainment']},{name:'Kakao Group',cats:['tech']},
+    {name:'Kunsthalle Basel',cats:['art']},{name:'Lego',cats:['retail']},{name:'Marriott',cats:['hospitality']},
+    {name:'MASP',cats:['art']},{name:'Melissa',cats:['fashion']},{name:'Mercado Libre',cats:['retail']},
+    {name:'Meta',cats:['tech']},{name:'MoMA',cats:['art']},{name:'Motorola',cats:['tech']},
+    {name:'MTV',cats:['entertainment']},{name:'Museu Nacional',cats:['art']},{name:'Netflix',cats:['entertainment']},
+    {name:'Nike',cats:['fashion','retail']},{name:'PepsiCo',cats:['retail']},{name:'Pinterest',cats:['tech']},
+    {name:'Prime Video',cats:['entertainment']},{name:'QuintoAndar',cats:['hospitality']},
+    {name:'Ray-Ban',cats:['fashion']},{name:'Republic Records',cats:['entertainment']},
+    {name:'Robinhood',cats:['finance']},{name:'Serpentine Galleries',cats:['art']},
+    {name:'Shopify',cats:['tech','retail']},{name:'Solana',cats:['finance']},
+    {name:'Spotify',cats:['entertainment','tech']},{name:'Stacks',cats:['finance']},
+    {name:'Stripe',cats:['finance']},{name:'Sundance Film Festival',cats:['art','entertainment']},
+    {name:'The Brooklyn Rail',cats:['art']},{name:'Tom of Finland Foundation',cats:['art','nonprofit']},
+    {name:'Twitch',cats:['entertainment']},{name:'Universal Music',cats:['entertainment']},
+    {name:'Upwork',cats:['tech']},{name:'VEEPS',cats:['entertainment']},
+    {name:'Whole Festival',cats:['entertainment']},{name:'XQ Institute',cats:['nonprofit']},
+    {name:'YouTube',cats:['tech','entertainment']},{name:'88rising',cats:['entertainment']},
+  ];
+  function renderClients(f) {
+    const list = (f==='all' ? clients : clients.filter(c=>c.cats.includes(f))).slice().sort((a,b)=>a.name.localeCompare(b.name));
+    document.getElementById('clientsGrid').innerHTML = list.map(c=>`<span>${c.name}</span>`).join('');
+  }
+  renderClients('all');
+  document.querySelectorAll('.clients__filter button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.clients__filter button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderClients(btn.dataset.filter);
+    });
+  });
+
+  /* ── Offerings ── */
+  const offerings = {
+    strategy: 'We help brands find their North Star, guiding decisions across business, identity, product, and experiences. Driven by insights, rooted in narrative, and ready to use, we turn business ambitions into brand realities that resonate with the world.',
+    verbal:   'We craft the language systems that give brands a distinct and consistent voice — from naming and messaging architecture to tone of voice guidelines that scale across every touchpoint.',
+    visual:   'We build rigorous visual identity systems: marks, typography, color, iconography, and motion principles that are expressive, precise, and built to endure.',
+    digital:  'We design digital products and experiences — websites, apps, and interactive systems — that translate brand strategy into compelling, functional interfaces.',
+    motion:   'We bring brands to life through motion and 3D, creating dynamic systems and animations that extend identity across screen, space, and time.',
+  };
+  document.querySelectorAll('.offerings__tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.offerings__tabs button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('offeringsContent').textContent = offerings[btn.dataset.tab];
+    });
+  });
+
+  /* ── Team ── */
+  const team = [
+    {name:'Alessandro De Vecchi', role:'Senior Brand Designer',       city:'Milan'},
+    {name:'Andy Li',              role:'Design Intern',                city:'Baltimore'},
+    {name:'Bee Parkinson-Cameron',role:'Senior Strategist',           city:'London'},
+    {name:'Caitlin Doyle',        role:'Director of Operations',      city:'New York'},
+    {name:'Felipe Rocha',         role:'Founder & Creative Director', city:'New York'},
+    {name:'Greg Tsilelekis',      role:'Senior Interactive Designer', city:'New York'},
+    {name:'Joseph Lebus',         role:'Senior Brand Designer',       city:'London'},
+    {name:'Leo Porto',            role:'Founder & Creative Director', city:'New York'},
+    {name:'Marcos Rodrigues',     role:'Senior Motion Designer',      city:'Vilnius'},
+    {name:'Nathan Fyock',         role:'Senior Project Manager',      city:'New York'},
+    {name:'Petra Eriksson',       role:'Brand Designer',              city:'Stockholm'},
+    {name:'Sofía Ruiz',           role:'Brand Strategist',            city:'New York'},
+  ];
+  document.getElementById('teamList').innerHTML = team.map(m =>
+    `<div class="team__row"><span class="team__name">${m.name}</span><span class="team__role">${m.role}</span><span class="team__city">${m.city}</span></div>`
+  ).join('');
+</script>
+</body>
+</html>
